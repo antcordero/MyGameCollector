@@ -5,9 +5,23 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+//var usersRouter = require('./routes/users');
 
 var app = express();
+
+//Crear base de datos
+var Database = require('better-sqlite3');
+let db = new Database("db.sqlite");
+const sql = `
+  CREATE TABLE IF NOT EXISTS game (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    platform TEXT NOT NULL,
+    genre TEXT NOT NULL,
+    state TEXT NOT NULL
+  )
+`;
+db.prepare(sql).run();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,7 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
