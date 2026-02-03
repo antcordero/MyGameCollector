@@ -1,4 +1,4 @@
-/* 1. Variables Globales */
+/*********************** GLOBAL ***************************/
 :root {
   --nav-bg: #1a1a1a;
   --accent-color: #0d6efd; /* Azul Bootstrap */
@@ -6,7 +6,7 @@
   --text-dark: #333;
 }
 
-/* 2. Reseteo y Estructura Base */
+
 html, body {
   height: 100%; 
   margin: 0;
@@ -20,10 +20,10 @@ body {
   flex-direction: column;
 }
 
-/* 3. Estilo del Nav (Mejorado: Más alto y espacioso) */
+/*********************** NAV ***************************/
 .custom-nav {
   background-color: var(--nav-bg);
-  min-height: 100px; /* Aumentado para que no se vea estrecho */
+  min-height: 100px;
   display: flex;
   align-items: center;
   position: relative;
@@ -36,14 +36,14 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 40px; /* Más espacio entre enlaces */
+  gap: 40px;
 }
 
 .nav-links li a {
   color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
-  font-size: 1rem; /* Fuente un poco más grande */
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 1.5px;
   padding: 10px 0;
@@ -51,7 +51,6 @@ body {
   transition: color 0.3s ease;
 }
 
-/* Efecto de línea animada del CodePen */
 .nav-links li a::after {
   content: '';
   position: absolute;
@@ -72,7 +71,7 @@ body {
   color: var(--accent-color);
 }
 
-/* 4. Icono Central (Mejorado) */
+/**** icono central ***************************/
 .nav-brand-central {
   position: absolute;
   left: 50%;
@@ -80,7 +79,7 @@ body {
 }
 
 .nav-brand-central i {
-  font-size: 3.5rem; /* Icono más imponente */
+  font-size: 3.5rem;
   color: var(--accent-color);
   transition: transform 0.3s ease, filter 0.3s ease;
   filter: drop-shadow(0 0 8px rgba(13, 110, 253, 0.3));
@@ -91,12 +90,12 @@ body {
   filter: drop-shadow(0 0 12px rgba(13, 110, 253, 0.6));
 }
 
-/* 5. Ajustes del Main y Contenido */
+/*********************** MAIN ***************************/
 main {
-  flex-grow: 1; /* Empuja el footer al final */
+  flex-grow: 1;
 }
 
-/* 6. Estilo del Footer */
+/*********************** FOOTER ***************************/
 footer {
   background-color: var(--nav-bg);
   color: rgba(255,255,255,0.6);
@@ -104,7 +103,7 @@ footer {
   border-top: 4px solid var(--accent-color);
 }
 
-/* 7. Hero Section con Diagonal (Diagonal Hero) */
+  /*********************** HERO ***************************/
 .hero-container {
   display: flex;
   min-height: 550px;
@@ -126,7 +125,6 @@ footer {
 .hero-image-side {
   flex: 1;
   position: relative;
-  /* Link directo de alta calidad */
   background-image: url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=2071&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
@@ -136,7 +134,7 @@ footer {
   background-color: #222;
 }
 
-/* 8. Estilos del Carrusel dentro del Hero */
+/*********************** CAROUSEL ***************************/
 #heroCarousel .carousel-item {
   min-height: 220px;
 }
@@ -158,7 +156,7 @@ footer {
   display: block;
 }
 
-/* 9. Componentes de Bootstrap */
+/*********************** CARD ***************************/
 .card {
   border: none;
   border-radius: 15px;
@@ -183,7 +181,7 @@ footer {
   box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
 }
 
-/* 10. Responsividad General */
+/*********************** RESPONSIVE ***************************/
 @media (max-width: 992px) {
   .hero-container {
     flex-direction: column;
@@ -208,6 +206,6 @@ footer {
     justify-content: center;
   }
   .nav-links {
-    display: none; /* Se oculta para el menú móvil de Bootstrap */
+    display: none;
   }
 }
