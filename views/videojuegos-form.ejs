@@ -1,0 +1,65 @@
+<% const esEdicion = !!videojuego; %>
+
+<h1 class="h3 mb-4">
+  <%= esEdicion ? "Editar videojuego" : "Nuevo videojuego" %>
+</h1>
+
+<% if (error) { %>
+  <div class="alert alert-danger"><%= error %></div>
+<% } %>
+
+<form
+  action="<%= esEdicion ? '/videojuegos/' + videojuego.id + '/editar' : '/videojuegos' %>"
+  method="post"
+  class="row g-3"
+>
+  <div class="col-12">
+    <label for="titulo" class="form-label">Título</label>
+    <input
+      type="text"
+      class="form-control"
+      id="titulo"
+      name="titulo"
+      required
+      value="<%= videojuego ? videojuego.titulo : '' %>"
+    />
+  </div>
+
+  <div class="col-12 col-md-6">
+    <label for="plataforma" class="form-label">Plataforma</label>
+    <select class="form-select" id="plataforma" name="plataforma" required>
+      <option value="">Selecciona...</option>
+      <option value="PC" <%= videojuego && videojuego.plataforma === "PC" ? "selected" : "" %>>PC</option>
+      <option value="PlayStation" <%= videojuego && videojuego.plataforma === "PlayStation" ? "selected" : "" %>>PlayStation</option>
+      <option value="Xbox" <%= videojuego && videojuego.plataforma === "Xbox" ? "selected" : "" %>>Xbox</option>
+      <option value="Nintendo" <%= videojuego && videojuego.plataforma === "Nintendo" ? "selected" : "" %>>Nintendo</option>
+    </select>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <label for="genero" class="form-label">Género</label>
+    <select class="form-select" id="genero" name="genero" required>
+      <option value="">Selecciona...</option>
+      <option value="Accion" <%= videojuego && videojuego.genero === "Accion" ? "selected" : "" %>>Acción</option>
+      <option value="Aventura" <%= videojuego && videojuego.genero === "Aventura" ? "selected" : "" %>>Aventura</option>
+      <option value="RPG" <%= videojuego && videojuego.genero === "RPG" ? "selected" : "" %>>RPG</option>
+      <option value="Deportes" <%= videojuego && videojuego.genero === "Deportes" ? "selected" : "" %>>Deportes</option>
+    </select>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <label for="estado" class="form-label">Estado</label>
+    <select class="form-select" id="estado" name="estado" required>
+      <option value="pendiente" <%= !videojuego || videojuego.estado === "pendiente" ? "selected" : "" %>>Pendiente</option>
+      <option value="progreso" <%= videojuego && videojuego.estado === "progreso" ? "selected" : "" %>>En progreso</option>
+      <option value="completado" <%= videojuego && videojuego.estado === "completado" ? "selected" : "" %>>Completado</option>
+    </select>
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">
+      <%= esEdicion ? "Guardar cambios" : "Guardar videojuego" %>
+    </button>
+    <a href="/admin" class="btn btn-outline-secondary ms-2">Cancelar</a>
+  </div>
+</form>

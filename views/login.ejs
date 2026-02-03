@@ -1,0 +1,65 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+    <div class="card shadow-lg border-0">
+      <div class="card-body p-5">
+        
+        <div class="text-center mb-4">
+          <div class="bg-primary bg-opacity-10 d-inline-block p-3 rounded-circle mb-3">
+            <i class="bi bi-person-fill text-primary fs-1"></i>
+          </div>
+          <h2 class="fw-bold text-dark">Bienvenido</h2>
+          <p class="text-muted">Inicia sesión para gestionar tu colección</p>
+        </div>
+
+        <% if (error) { %>
+          <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <div><%= error %></div>
+          </div>
+        <% } %>
+
+        <form action="/login" method="post" class="needs-validation">
+          <div class="mb-3">
+            <label for="idName" class="form-label fw-semibold">Correo Electrónico</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope"></i></span>
+              <input
+                type="email"
+                class="form-control bg-light border-start-0"
+                id="idName"
+                placeholder="ejemplo@correo.com"
+                name="name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="idPassword" class="form-label fw-semibold">Contraseña</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock"></i></span>
+              <input
+                type="password"
+                class="form-control bg-light border-start-0"
+                id="idPassword"
+                placeholder="Tu contraseña"
+                name="password"
+                required
+              />
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100 py-3 fw-bold shadow-sm mb-3" type="submit">
+            Entrar al Panel
+          </button>
+
+          <div class="text-center">
+            <p class="mb-0 text-muted">
+              ¿Aún no tienes cuenta? <a href="/registro" class="text-primary fw-bold text-decoration-none">Regístrate gratis</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

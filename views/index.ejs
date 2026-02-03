@@ -1,3 +1,62 @@
-<h1>MyGameCollector - Webapp</h1>
-<p>Bienvenido a la webapp de MyGameCollector</p>
-<hr>
+<div class="hero-container my-5">
+  <div class="hero-content">
+    <span class="hero-badge">Únete ahora</span>
+    
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators" style="margin-bottom: -2rem; justify-content: flex-start; margin-left: 0;">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <h1 class="display-4 fw-bold text-dark">Organiza tu Colección <span class="text-primary">Épica</span></h1>
+          <p class="lead text-muted">Registra tus videojuegos con título, plataforma y género en segundos.</p>
+        </div>
+        
+        <div class="carousel-item">
+          <h1 class="display-4 fw-bold text-dark">Controla tu <span class="text-primary">Progreso</span></h1>
+          <p class="lead text-muted">Marca qué juegos tienes pendientes, cuáles estás disfrutando y cuáles has dominado.</p>
+        </div>
+
+        <div class="carousel-item">
+          <h1 class="display-4 fw-bold text-dark">Filtros <span class="text-primary">Inteligentes</span></h1>
+          <p class="lead text-muted">Encuentra exactamente lo que quieres jugar filtrando por plataforma o género rápidamente.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 pt-3">
+      <% if (user) { %>
+        <div class="d-flex align-items-center gap-3">
+          <a href="/admin" class="btn btn-primary btn-lg shadow">Ir a mi Panel</a>
+          <span class="text-muted small">Hola de nuevo, <strong><%= user.nick %></strong></span>
+        </div>
+      <% } else { %>
+        <div class="d-flex gap-2">
+          <a href="/login" class="btn btn-primary btn-lg shadow px-5">Iniciar Sesión</a>
+          <a href="/registro" class="btn btn-outline-dark btn-lg px-4">Crear Cuenta</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="hero-image-side shadow-lg">
+    </div>
+</div>
+
+<div class="row text-center mt-5 mb-5">
+  <div class="col-md-4">
+    <i class="bi bi-controller fs-1 text-primary"></i>
+    <h3 class="h5 mt-2">Multiplataforma</h3>
+  </div>
+  <div class="col-md-4">
+    <i class="bi bi-shield-check fs-1 text-primary"></i>
+    <h3 class="h5 mt-2">Privacidad Total</h3>
+  </div>
+  <div class="col-md-4">
+    <i class="bi bi-lightning-charge fs-1 text-primary"></i>
+    <h3 class="h5 mt-2">Acceso Rápido</h3>
+  </div>
+</div>

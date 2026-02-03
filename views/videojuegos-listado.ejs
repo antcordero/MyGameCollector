@@ -1,0 +1,93 @@
+<div class="d-flex flex-column flex-lg-row justify-content-between align-items-start mb-4 gap-3">
+    <h1 class="h3 mb-0">Mis videojuegos</h1>
+    <a href="/videojuegos/nuevo" class="btn btn-success">Añadir videojuego</a>
+  </div>
+  
+  <form class="row g-3 mb-4" method="get" action="/admin">
+    <div class="col-12 col-md-4">
+      <label for="plataforma" class="form-label">Plataforma</label>
+      <select class="form-select" id="plataforma" name="plataforma">
+        <option value="">Todas</option>
+        <option value="PC" <%= filtro.plataforma === "PC" ? "selected" : "" %>>PC</option>
+        <option value="PlayStation" <%= filtro.plataforma === "PlayStation" ? "selected" : "" %>>PlayStation</option>
+        <option value="Xbox" <%= filtro.plataforma === "Xbox" ? "selected" : "" %>>Xbox</option>
+        <option value="Nintendo" <%= filtro.plataforma === "Nintendo" ? "selected" : "" %>>Nintendo</option>
+      </select>
+    </div>
+  
+    <div class="col-12 col-md-4">
+      <label for="genero" class="form-label">Género</label>
+      <select class="form-select" id="genero" name="genero">
+        <option value="">Todos</option>
+        <option value="Accion" <%= filtro.genero === "Accion" ? "selected" : "" %>>Acción</option>
+        <option value="Aventura" <%= filtro.genero === "Aventura" ? "selected" : "" %>>Aventura</option>
+        <option value="RPG" <%= filtro.genero === "RPG" ? "selected" : "" %>>RPG</option>
+        <option value="Deportes" <%= filtro.genero === "Deportes" ? "selected" : "" %>>Deportes</option>
+      </select>
+    </div>
+  
+    <div class="col-12 col-md-4">
+      <label for="estado" class="form-label">Estado</label>
+      <select class="form-select" id="estado" name="estado">
+        <option value="">Todos</option>
+        <option value="pendiente" <%= filtro.estado === "pendiente" ? "selected" : "" %>>Pendiente</option>
+        <option value="progreso" <%= filtro.estado === "progreso" ? "selected" : "" %>>En progreso</option>
+        <option value="completado" <%= filtro.estado === "completado" ? "selected" : "" %>>Completado</option>
+      </select>
+    </div>
+  
+    <div class="col-12 d-flex justify-content-end gap-2">
+      <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+      <a href="/admin" class="btn btn-outline-secondary mt-2">Limpiar filtros</a>
+    </div>
+  </form>
+  
+  <% if (!videojuegos || videojuegos.length === 0) { %>
+    <div class="alert alert-info">
+      Aún no tienes videojuegos registrados.
+    </div>
+  <% } else { %>
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Plataforma</th>
+            <th>Género</th>
+            <th>Estado</th>
+            <th class="text-end">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% videojuegos.forEach(function(v) { %>
+            <tr>
+              <td><%= v.titulo %></td>
+              <td><%= v.plataforma %></td>
+              <td><%= v.genero %></td>
+              <td>
+                <% if (v.estado === "completado") { %>
+                  <span class="badge bg-success">Completado</span>
+                <% } else if (v.estado === "progreso") { %>
+                  <span class="badge bg-warning text-dark">En progreso</span>
+                <% } else { %>
+                  <span class="badge bg-secondary">Pendiente</span>
+                <% } %>
+              </td>
+              <td class="text-end">
+                <a href="/videojuegos/<%= v.id %>/editar" class="btn btn-sm btn-outline-primary me-2">
+                  Editar
+                </a>
+                <form action="/videojuegos/<%= v.id %>/borrar" method="post" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-outline-danger"
+                          onclick="return confirm('¿Seguro que quieres borrar este videojuego?');">
+                    Borrar
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+  

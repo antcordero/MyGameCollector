@@ -1,0 +1,42 @@
+<nav class="custom-nav shadow-sm mb-4">
+    <div class="container d-flex align-items-center justify-content-between">
+      
+      <ul class="nav-links d-none d-md-flex">
+        <li><a href="/" class="<%= title === 'Mi colección de videojuegos' ? 'active' : '' %>">Inicio</a></li>
+      </ul>
+  
+      <div class="nav-brand-central">
+        <a href="/">
+          <i class="bi bi-controller"></i>
+        </a>
+      </div>
+  
+      <ul class="nav-links d-none d-md-flex">
+        <% if (user) { %>
+          <li><a href="/admin" class="<%= title === 'Panel de videojuegos' ? 'active' : '' %>">Panel</a></li>
+          <li><a href="/logout" class="text-danger">Salir</a></li>
+        <% } else { %>
+          <li><a href="/login" class="<%= title === 'Login' ? 'active' : '' %>">Login</a></li>
+          <li><a href="/registro" class="<%= title === 'Registro' ? 'active' : '' %>">Registro</a></li>
+        <% } %>
+      </ul>
+      
+      <div class="d-md-none">
+          <button class="btn text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
+              <i class="bi bi-list fs-2"></i>
+          </button>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="collapse d-md-none bg-dark p-3 mb-4" id="mobileMenu">
+      <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link text-white" href="/">Inicio</a></li>
+          <% if (user) { %>
+              <li class="nav-item"><a class="nav-link text-white" href="/admin">Panel</a></li>
+              <li class="nav-item"><a class="nav-link text-danger" href="/logout">Salir</a></li>
+          <% } else { %>
+              <li class="nav-item"><a class="nav-link text-white" href="/login">Login</a></li>
+          <% } %>
+      </ul>
+  </div>
