@@ -1,6 +1,8 @@
 // data/initialize-videojuegos.js
 
 module.exports = function (db) {
+  // Creamos la tabla si no existe. 
+  // He añadido el campo 'imagen' para guardar la URL de la carátula.
   const stmt = db.prepare(`
     CREATE TABLE IF NOT EXISTS videojuegos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -9,6 +11,7 @@ module.exports = function (db) {
       plataforma TEXT NOT NULL,
       genero TEXT NOT NULL,
       estado TEXT NOT NULL DEFAULT 'pendiente',
+      imagen TEXT, 
       fecha_creacion TEXT NOT NULL DEFAULT (datetime('now','localtime')),
       FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
     )

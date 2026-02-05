@@ -1,11 +1,9 @@
-// data/videojuego-dao.js
-
 class VideojuegoDAO {
   constructor(database) {
     this.database = database;
   }
 
-  // Lista por usuario con filtros opcionales
+  //lista por usuario con filtros
   findByUserId(idUsuario, filtros = {}) {
     let sql = 'SELECT * FROM videojuegos WHERE id_usuario = ?';
     const params = [idUsuario];
@@ -35,22 +33,24 @@ class VideojuegoDAO {
     return stmt.get(id, idUsuario);
   }
 
-  insert(idUsuario, titulo, plataforma, genero, estado) {
+  // Insert de datos
+  insert(idUsuario, titulo, plataforma, genero, estado, imagen) {
     const stmt = this.database.prepare(`
-      INSERT INTO videojuegos (id_usuario, titulo, plataforma, genero, estado)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO videojuegos (id_usuario, titulo, plataforma, genero, estado, imagen)
+      VALUES (?, ?, ?, ?, ?, ?)
     `);
-    const info = stmt.run(idUsuario, titulo, plataforma, genero, estado);
+    const info = stmt.run(idUsuario, titulo, plataforma, genero, estado, imagen);
     return info.lastInsertRowid;
   }
 
-  update(id, idUsuario, titulo, plataforma, genero, estado) {
+  // edirtar datos
+  update(id, idUsuario, titulo, plataforma, genero, estado, imagen) {
     const stmt = this.database.prepare(`
       UPDATE videojuegos
-      SET titulo = ?, plataforma = ?, genero = ?, estado = ?
+      SET titulo = ?, plataforma = ?, genero = ?, estado = ?, imagen = ?
       WHERE id = ? AND id_usuario = ?
     `);
-    return stmt.run(titulo, plataforma, genero, estado, id, idUsuario);
+    return stmt.run(titulo, plataforma, genero, estado, imagen, id, idUsuario);
   }
 
   delete(id, idUsuario) {

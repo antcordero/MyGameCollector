@@ -47,7 +47,7 @@ router.post('/login', function (req, res) {
     });
   }
 
-  //nick de ususario
+  // Sesión del usuario
   req.session.user = { email: user.email, id: user.id, nick: user.nick };
   res.redirect('/admin');
 });
@@ -98,24 +98,27 @@ router.get('/videojuegos/nuevo', authMiddleware, function (req, res) {
  * POST /videojuegos
  */
 router.post('/videojuegos', authMiddleware, function (req, res) {
-  const { titulo, plataforma, genero, estado } = req.body;
+  // Extraemos también 'imagen' del cuerpo de la petición
+  const { titulo, plataforma, genero, estado, imagen } = req.body;
 
   if (!titulo || !plataforma || !genero || !estado) {
     return res.render('videojuegos-form', {
       title: 'Nuevo videojuego',
       user: req.session.user,
       layout: 'layout-admin',
-      videojuego: { titulo, plataforma, genero, estado },
+      videojuego: { titulo, plataforma, genero, estado, imagen },
       error: 'Todos los campos son obligatorios'
     });
   }
 
+  // Pasamos el parámetro imagen al DAO
   videojuegoDAO.insert(
     req.session.user.id,
     titulo,
     plataforma,
     genero,
-    estado
+    estado,
+    imagen
   );
 
   res.redirect('/admin');
@@ -146,25 +149,27 @@ router.get('/videojuegos/:id/editar', authMiddleware, function (req, res) {
  */
 router.post('/videojuegos/:id/editar', authMiddleware, function (req, res) {
   const id = parseInt(req.params.id);
-  const { titulo, plataforma, genero, estado } = req.body;
+  const { titulo, plataforma, genero, estado, imagen } = req.body;
 
   if (!titulo || !plataforma || !genero || !estado) {
     return res.render('videojuegos-form', {
       title: 'Editar videojuego',
       user: req.session.user,
       layout: 'layout-admin',
-      videojuego: { id, titulo, plataforma, genero, estado },
+      videojuego: { id, titulo, plataforma, genero, estado, imagen },
       error: 'Todos los campos son obligatorios'
     });
   }
 
+  // Actualizar el DAO
   videojuegoDAO.update(
     id,
     req.session.user.id,
     titulo,
     plataforma,
     genero,
-    estado
+    estado,
+    imagen
   );
 
   res.redirect('/admin');
@@ -231,7 +236,7 @@ router.post('/registro', function (req, res) {
 
   const id = usuarioDAO.createUser(email, nick, password);
 
-  //iniciar sesión directamente tras registro
+  // Iniciar sesión tras registro
   req.session.user = { email, nick, id };
   res.redirect('/admin');
 });
