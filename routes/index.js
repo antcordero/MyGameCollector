@@ -17,7 +17,7 @@ var videojuegoDAO = new VideojuegoDAO(db);
  */
 router.get('/', function (req, res) {
   res.render('index', {
-    title: 'Mi colección de videojuegos',
+    title: 'MyGameCollector',
     user: req.session.user || null
   });
 });
