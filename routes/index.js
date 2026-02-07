@@ -1,16 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var authMiddleware = require('../middlewares/auth');
+const authMiddleware = require('../middlewares/auth');
 
-var Database = require('../data/database');
+const Database = require('../data/database');
 const UsuarioDAO = require('../data/usuario-dao');
 const VideojuegoDAO = require('../data/videojuego-dao');
 
 // BD y DAOs
-var db = Database.getInstance('db.sqlite');
-var usuarioDAO = new UsuarioDAO(db);
-var videojuegoDAO = new VideojuegoDAO(db);
+const db = Database.getInstance('db.sqlite');
+const usuarioDAO = new UsuarioDAO(db);
+const videojuegoDAO = new VideojuegoDAO(db);
 
 /**
  * GET raiz
