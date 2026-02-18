@@ -9,11 +9,6 @@ module.exports = (db) => {
   `;
   db.prepare(sql).run();
 
-<<<<<<< HEAD
-  //Si no hay usuarios, creo el usuario administrador
-=======
-  //si no hay usuarios, crea el usuario administrador
->>>>>>> 4b3541774ce697d381b2fd2fe804f6151cc571d4
   const count = db.prepare('SELECT count(*) as total FROM usuarios').get();
 
   if (count.total === 0) {
