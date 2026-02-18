@@ -1,8 +1,6 @@
-// data/initialize-videojuegos.js
-
 module.exports = function (db) {
-  // Creamos la tabla si no existe. 
-  // He añadido el campo 'imagen' para guardar la URL de la carátula.
+  //Crear la tabla si no existe. 
+  //añadido el campo 'imagen' para guardar la URL de la carátula.
   const stmt = db.prepare(`
     CREATE TABLE IF NOT EXISTS videojuegos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,

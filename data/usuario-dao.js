@@ -1,5 +1,3 @@
-// data/usuario-dao.js
-
 class UsuarioDAO {
   #database = null;
 

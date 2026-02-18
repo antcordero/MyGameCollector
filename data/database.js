@@ -1,5 +1,3 @@
-// data/database.js
-
 class Database {
   static db = null;
 

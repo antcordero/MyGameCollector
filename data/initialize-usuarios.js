@@ -1,5 +1,3 @@
-// data/initialize-usuarios.js
-
 module.exports = (db) => {
   const sql = `
     CREATE TABLE IF NOT EXISTS usuarios (
@@ -11,7 +9,7 @@ module.exports = (db) => {
   `;
   db.prepare(sql).run();
 
-  // Si no hay usuarios, creo el usuario administrador
+  //Si no hay usuarios, creo el usuario administrador
   const count = db.prepare('SELECT count(*) as total FROM usuarios').get();
 
   if (count.total === 0) {

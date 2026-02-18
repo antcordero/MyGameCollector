@@ -14,6 +14,14 @@ body {
   flex-direction: column;
 }
 
+/********************** botones ************************/
+#btnSoloFavoritos.active,
+#btnTodosJuegos.active {
+  background-color: var(--accent-color);
+  color: #fff;
+}
+
+
 /*********************** NAV ***************************/
 .custom-nav {
   background-color: var(--nav-bg);
