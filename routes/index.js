@@ -12,6 +12,12 @@ const db = Database.getInstance('db.sqlite');
 const usuarioDAO = new UsuarioDAO(db);
 const videojuegoDAO = new VideojuegoDAO(db);
 
+function esPeticionJSON(req) {
+  const accept = req.get('accept') || '';
+  const contentType = req.get('content-type') || '';
+  return accept.includes('application/json') || contentType.includes('application/json');
+}
+
 /**
  * GET raiz
  */
@@ -95,13 +101,19 @@ router.get('/videojuegos/nuevo', authMiddleware, function (req, res) {
 });
 
 /**
- * POST /videojuegos
+ * POST /videojuegos  (crear)
  */
 router.post('/videojuegos', authMiddleware, function (req, res) {
-  // Extraemos también 'imagen' del cuerpo de la petición
   const { titulo, plataforma, genero, estado, imagen } = req.body;
 
   if (!titulo || !plataforma || !genero || !estado) {
+    if (esPeticionJSON(req)) {
+      return res.status(400).json({
+        ok: false,
+        error: 'Todos los campos son obligatorios'
+      });
+    }
+
     return res.render('videojuegos-form', {
       title: 'Nuevo videojuego',
       user: req.session.user,
@@ -111,8 +123,7 @@ router.post('/videojuegos', authMiddleware, function (req, res) {
     });
   }
 
-  // Pasamos el parámetro imagen al DAO
-  videojuegoDAO.insert(
+  const id = videojuegoDAO.insert(
     req.session.user.id,
     titulo,
     plataforma,
@@ -120,6 +131,13 @@ router.post('/videojuegos', authMiddleware, function (req, res) {
     estado,
     imagen
   );
+
+  if (esPeticionJSON(req)) {
+    return res.json({
+      ok: true,
+      videojuego: { id, titulo, plataforma, genero, estado, imagen }
+    });
+  }
 
   res.redirect('/admin');
 });
@@ -145,13 +163,20 @@ router.get('/videojuegos/:id/editar', authMiddleware, function (req, res) {
 });
 
 /**
- * POST /videojuegos/:id/editar
+ * POST /videojuegos/:id/editar  (actualizar)
  */
 router.post('/videojuegos/:id/editar', authMiddleware, function (req, res) {
   const id = parseInt(req.params.id);
   const { titulo, plataforma, genero, estado, imagen } = req.body;
 
   if (!titulo || !plataforma || !genero || !estado) {
+    if (esPeticionJSON(req)) {
+      return res.status(400).json({
+        ok: false,
+        error: 'Todos los campos son obligatorios'
+      });
+    }
+
     return res.render('videojuegos-form', {
       title: 'Editar videojuego',
       user: req.session.user,
@@ -161,7 +186,6 @@ router.post('/videojuegos/:id/editar', authMiddleware, function (req, res) {
     });
   }
 
-  // Actualizar el DAO
   videojuegoDAO.update(
     id,
     req.session.user.id,
@@ -171,6 +195,13 @@ router.post('/videojuegos/:id/editar', authMiddleware, function (req, res) {
     estado,
     imagen
   );
+
+  if (esPeticionJSON(req)) {
+    return res.json({
+      ok: true,
+      videojuego: { id, titulo, plataforma, genero, estado, imagen }
+    });
+  }
 
   res.redirect('/admin');
 });

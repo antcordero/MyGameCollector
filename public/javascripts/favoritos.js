@@ -59,16 +59,25 @@
     }
 
     function aplicarModoGuardado() {
-        const modo = localStorage.getItem(CLAVE_MODO);
+        let modo = localStorage.getItem(CLAVE_MODO);
+        const favoritos = obtenerFavoritos();
+      
+        //si no hay modo guardado pero sí hay favoritos, por defecto solo favoritos
+        if (modo === null && favoritos.length > 0) {
+          modo = 'true';
+        }
+      
         const soloFav = modo === 'true';
         aplicarFiltroSoloFavoritos(soloFav);
+      
         const btnSolo = document.getElementById('btnSoloFavoritos');
         const btnTodos = document.getElementById('btnTodosJuegos');
         if (btnSolo && btnTodos) {
-            btnSolo.classList.toggle('active', soloFav);
-            btnTodos.classList.toggle('active', !soloFav);
+          btnSolo.classList.toggle('active', soloFav);
+          btnTodos.classList.toggle('active', !soloFav);
         }
-    }
+      }
+      
 
     document.addEventListener('DOMContentLoaded', function () {
         const contenedorAdmin = document.querySelector('.fila-videojuego') || document.getElementById('btnSoloFavoritos');

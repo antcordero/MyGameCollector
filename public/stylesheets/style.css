@@ -1,8 +1,9 @@
 /*********************** GLOBAL ***************************/
 @import "theme.css";
 
-html, body {
-  height: 100%; 
+html,
+body {
+  height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -14,7 +15,7 @@ body {
   flex-direction: column;
 }
 
-/********************** botones ************************/
+/********************** botones - favoritos ************************/
 #btnSoloFavoritos.active,
 #btnTodosJuegos.active {
   background-color: var(--accent-color);
@@ -100,7 +101,7 @@ main {
 /*********************** FOOTER ***************************/
 footer {
   background-color: var(--nav-bg);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   padding: 2.5rem 0;
   border-top: 4px solid var(--accent-color);
 }
@@ -113,7 +114,7 @@ footer {
   background: #ffffff;
   overflow: hidden;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 .hero-content {
@@ -163,13 +164,13 @@ footer {
 .card {
   border: none;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
@@ -190,24 +191,29 @@ footer {
     flex-direction: column;
     min-height: auto;
   }
+
   .hero-image-side {
     height: 350px;
     clip-path: none;
     margin-left: 0;
     order: 1;
   }
+
   .hero-content {
     order: 2;
     padding: 2.5rem;
   }
+
   .nav-brand-central {
     position: static;
     transform: none;
   }
+
   .custom-nav {
     min-height: 80px;
     justify-content: center;
   }
+
   .nav-links {
     display: none;
   }

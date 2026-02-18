@@ -1,64 +1,86 @@
-<% const esEdicion = !!videojuego; %>
+<% const esEdicion=!!videojuego; %>
 
-<div class="row justify-content-center py-4">
-    <div class="col-lg-8">
-        <div class="card border-0 shadow-lg overflow-hidden">
-            <div class="bg-primary p-4 text-white text-center">
-                <h2 class="h4 mb-0"><%= esEdicion ? 'Actualizar Videojuego' : 'Añadir Nuevo Juego' %></h2>
-            </div>
-            
-            <div class="card-body p-4 p-md-5">
-                <form action="<%= esEdicion ? '/videojuegos/' + videojuego.id + '/editar' : '/videojuegos' %>" method="post" class="row g-4">
-                    
-                    <div class="col-12">
-                        <label class="form-label fw-bold">Título del Juego</label>
-                        <input type="text" class="form-control form-control-lg bg-light border-0" name="titulo" value="<%= videojuego ? videojuego.titulo : '' %>" required placeholder="Ej: Elden Ring">
-                    </div>
+    <div class="row justify-content-center py-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg overflow-hidden">
+                <div class="bg-primary p-4 text-white text-center">
+                    <h2 class="h4 mb-0">
+                        <%= esEdicion ? 'Actualizar Videojuego' : 'Añadir Nuevo Juego' %>
+                    </h2>
+                </div>
 
-                    <div class="col-12">
-                        <label class="form-label fw-bold">URL de la Carátula</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light border-0"><i class="bi bi-image"></i></span>
-                            <input type="url" class="form-control bg-light border-0" name="imagen" value="<%= videojuego ? videojuego.imagen : '' %>" placeholder="https://enlace-a-tu-imagen.jpg">
+                <div class="card-body p-4 p-md-5">
+                    <!-- Mensajes de error/success para AJAX -->
+                    <div id="msgAjax" class="mb-3" style="display:none;"></div>
+
+                    <form id="formVideojuego"
+                        action="<%= esEdicion ? '/videojuegos/' + videojuego.id + '/editar' : '/videojuegos' %>"
+                        method="post" class="row g-4">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Título del Juego</label>
+                            <input type="text" class="form-control form-control-lg bg-light border-0" name="titulo"
+                                value="<%= videojuego ? videojuego.titulo : '' %>" required
+                                placeholder="Ej: Elden Ring">
                         </div>
-                        <div class="form-text">Usa una URL de una imagen que termine en .jpg o .png</div>
-                    </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label fw-bold">Plataforma</label>
-                        <select class="form-select bg-light border-0" name="plataforma" required>
-                            <option value="PC" <%= videojuego?.plataforma === 'PC' ? 'selected' : '' %>>PC</option>
-                            <option value="PlayStation" <%= videojuego?.plataforma === 'PlayStation' ? 'selected' : '' %>>PlayStation</option>
-                            <option value="Xbox" <%= videojuego?.plataforma === 'Xbox' ? 'selected' : '' %>>Xbox</option>
-                            <option value="Nintendo" <%= videojuego?.plataforma === 'Nintendo' ? 'selected' : '' %>>Nintendo</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label fw-bold">Género</label>
-                        <input type="text" class="form-control bg-light border-0" name="genero" value="<%= videojuego ? videojuego.genero : '' %>" required placeholder="Ej: Acción, RPG...">
-                    </div>
-
-                    <div class="col-12">
-                        <label class="form-label fw-bold d-block">Estado de Juego</label>
-                        <div class="btn-group w-100" role="group">
-                            <input type="radio" class="btn-check" name="estado" id="est1" value="pendiente" <%= !videojuego || videojuego.estado === 'pendiente' ? 'checked' : '' %>>
-                            <label class="btn btn-outline-secondary" for="est1">Pendiente</label>
-
-                            <input type="radio" class="btn-check" name="estado" id="est2" value="progreso" <%= videojuego?.estado === 'progreso' ? 'checked' : '' %>>
-                            <label class="btn btn-outline-warning" for="est2">En Progreso</label>
-
-                            <input type="radio" class="btn-check" name="estado" id="est3" value="completado" <%= videojuego?.estado === 'completado' ? 'checked' : '' %>>
-                            <label class="btn btn-outline-success" for="est3">Completado</label>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">URL de la Carátula</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0"><i class="bi bi-image"></i></span>
+                                <input type="url" class="form-control bg-light border-0" name="imagen"
+                                    value="<%= videojuego ? videojuego.imagen : '' %>"
+                                    placeholder="https://enlace-a-tu-imagen.jpg">
+                            </div>
+                            <div class="form-text">Usa una URL de una imagen que termine en .jpg o .png</div>
                         </div>
-                    </div>
 
-                    <div class="col-12 pt-3">
-                        <button type="submit" class="btn btn-primary btn-lg w-100 shadow"><%= esEdicion ? 'Guardar Cambios' : 'Registrar Juego' %></button>
-                        <a href="/admin" class="btn btn-link w-100 text-muted mt-2">Cancelar</a>
-                    </div>
-                </form>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Plataforma</label>
+                            <select class="form-select bg-light border-0" name="plataforma" required>
+                                <option value="PC" <%=videojuego?.plataforma==='PC' ? 'selected' : '' %>>PC</option>
+                                <option value="PlayStation" <%=videojuego?.plataforma==='PlayStation' ? 'selected' : ''
+                                    %>>PlayStation</option>
+                                <option value="Xbox" <%=videojuego?.plataforma==='Xbox' ? 'selected' : '' %>>Xbox
+                                </option>
+                                <option value="Nintendo" <%=videojuego?.plataforma==='Nintendo' ? 'selected' : '' %>
+                                    >Nintendo</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Género</label>
+                            <input type="text" class="form-control bg-light border-0" name="genero"
+                                value="<%= videojuego ? videojuego.genero : '' %>" required
+                                placeholder="Ej: Acción, RPG...">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold d-block">Estado de Juego</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="estado" id="est1" value="pendiente"
+                                    <%=!videojuego || videojuego.estado==='pendiente' ? 'checked' : '' %>>
+                                <label class="btn btn-outline-secondary" for="est1">Pendiente</label>
+
+                                <input type="radio" class="btn-check" name="estado" id="est2" value="progreso"
+                                    <%=videojuego?.estado==='progreso' ? 'checked' : '' %>>
+                                <label class="btn btn-outline-warning" for="est2">En Progreso</label>
+
+                                <input type="radio" class="btn-check" name="estado" id="est3" value="completado"
+                                    <%=videojuego?.estado==='completado' ? 'checked' : '' %>>
+                                <label class="btn btn-outline-success" for="est3">Completado</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 pt-3">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 shadow">
+                                <%= esEdicion ? 'Guardar Cambios' : 'Registrar Juego' %>
+                            </button>
+                            <a href="/admin" class="btn btn-link w-100 text-muted mt-2">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <script src="/javascripts/videojuegos-form.js"></script>
